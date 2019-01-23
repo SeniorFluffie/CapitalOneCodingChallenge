@@ -1,15 +1,25 @@
 from comment import *
 
+def commentCount(comments):
+    # counters for each property
+    hasTODO = 0;
+    singleComments = 0;
+    blockLine = 0;
+    # iterate through comments
+    for comment in comments:
+        # increment depending on properties
+        if comment.hasTODO is not False : hasTODO += 1;
+        if comment.isSingleComment is not False : singleComments += 1;
+        if comment.isBlockLine is not False : blockLine += 1;
+    return hasTODO, singleComments, blockLine
+
 def commentCheck(line):
     # the testable comment symbols
     commentIndicator = ['#', '//', '/*', '*'];
     # compare each symbol
     for symbol in commentIndicator:
         # exception of the single * (body comments)
-        if(symbol in line or line[len(commentIndicator) - 1] == '*'):
-            # do all the matching here
-            # isSingleComment
-            # hasTODO etc.
+        if(symbol in line or line[0] == len(commentIndicator) - 1):
             return True;
     return False;
 
@@ -61,9 +71,21 @@ def fileScan():
             print("Could not read file: ", path);
             fileScan();
         else:
-            # analyze the comments
+            # calculate line count
             print("Total # of lines: ", lineCount(path));
+            # split comments from other code
             comments = (segregateComments(path));
+            numComments = len(comments);
+            print("Total # of comment lines: ", numComments);
+            # intialize counters for TODO, single line comment,
+            # and block comment checks
+            numSingleComments = numBlockComments = numTODO = 0;
+            numSingleComments, numBlockComments, numTODO = commentCount(comments);
+            print("Total # of single line comments:", numSingleComments);
+            print("Total # of comment lines within block comments:", numComments - numSingleComments);
+            print("Total # of block line comments:", numBlockComments);
+            print("Total # of TODO's: ", numTODO);
+
 
 # run code
 fileScan();

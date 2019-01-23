@@ -14,8 +14,10 @@ class Comment:
 
     # checks if single line
     def isSingleComment(self):
-        return ("TODO" in self.text);
+        # TODO: Check for single comments
+        return False;
 
     # checks if part of comment block
     def isBlockLine(self):
-        return ("TODO" in self.text);
+        # TODO: Check for block line comments
+        return False;
