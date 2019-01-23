@@ -1,5 +1,8 @@
 from comment import *
 
+# (global) comment symbols to test for
+commentSymbols = ['#', '//', '/*', '*'];
+
 def commentCount(comments):
     # counters for each property
     hasTODO = 0;
@@ -11,15 +14,13 @@ def commentCount(comments):
         if comment.hasTODO is not False : hasTODO += 1;
         if comment.isSingleComment is not False : singleComments += 1;
         if comment.isBlockLine is not False : blockLine += 1;
-    return hasTODO, singleComments, blockLine
+    return singleComments, blockLine, hasTODO
 
 def commentCheck(line):
-    # the testable comment symbols
-    commentIndicator = ['#', '//', '/*', '*'];
     # compare each symbol
-    for symbol in commentIndicator:
+    for symbol in commentSymbols:
         # exception of the single * (body comments)
-        if(symbol in line or line[0] == len(commentIndicator) - 1):
+        if(symbol in line or line[0] == len(commentSymbols) - 1):
             return True;
     return False;
 
@@ -85,7 +86,6 @@ def fileScan():
             print("Total # of comment lines within block comments:", numComments - numSingleComments);
             print("Total # of block line comments:", numBlockComments);
             print("Total # of TODO's: ", numTODO);
-
 
 # run code
 fileScan();
