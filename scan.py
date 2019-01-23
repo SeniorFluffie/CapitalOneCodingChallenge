@@ -1,19 +1,25 @@
 from comment import *
 
 def commentCheck(line):
+    # the testable comment symbols
     commentIndicator = ['#', '//', '/*', '*'];
+    # compare each symbol
     for symbol in commentIndicator:
-        if(symbol in line or line[1] == '*'):
+        # exception of the single * (body comments)
+        if(symbol in line or line[len(commentIndicator) - 1] == '*'):
             # do all the matching here
             # isSingleComment
             # hasTODO etc.
             return True;
     return False;
 
+# analyze and split up comments
 def segregateComments(filename):
     comments = [];
+    # iterate through file
     with open(filename) as lines:
         for line in lines:
+            # if a comment, add to the list
             if commentCheck(line) is not False : comments.append(Comment(line));
     return comments;
 
@@ -59,4 +65,5 @@ def fileScan():
             print("Total # of lines: ", lineCount(path));
             comments = (segregateComments(path));
 
+# run code
 fileScan();
