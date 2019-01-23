@@ -17,6 +17,7 @@ def segregateComments(filename):
             if commentCheck(line) is not False : comments.append(Comment(line));
     return comments;
 
+# finds the number of lines in the file
 def lineCount(filename):
     # iterate through lines in the file
     # (with as the file stream is unmanaged)
@@ -28,12 +29,14 @@ def lineCount(filename):
             pass;
         return counter + 1;
 
+# checks if file should be read
 def checkFile(filename):
     # ignore hidden files or no extensions
     if('.' not in filename or filename[1] == '.'):
         return False;
     return True;
 
+# main method (scans file)
 def fileScan():
     # get filename
     try:
@@ -52,6 +55,7 @@ def fileScan():
             print("Could not read file: ", path);
             fileScan();
         else:
+            # analyze the comments
             print("Total # of lines: ", lineCount(path));
             comments = (segregateComments(path));
 

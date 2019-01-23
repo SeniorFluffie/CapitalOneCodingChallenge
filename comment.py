@@ -1,20 +1,21 @@
 class Comment:
+    # constructor
     def __init__(self, text):
+        # set text
         self.text = text;
+        # find initial property states
         self.hasTODO = self.hasTODO();
         self.isSingleComment = self.isSingleComment();
         self.isBlockLine = self.isBlockLine();
 
-    # if not in a block, must be a single comment
-    isSingleComment = None;
-    #
-    isBlockLine = None;
-
+    # determines if "TODO" is in the comment
     def hasTODO(self):
         return ("TODO" in self.text);
 
+    # checks if single line
     def isSingleComment(self):
         return ("TODO" in self.text);
 
+    # checks if part of comment block
     def isBlockLine(self):
         return ("TODO" in self.text);
