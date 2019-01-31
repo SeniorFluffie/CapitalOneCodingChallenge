@@ -36,7 +36,9 @@ class Comment:
     # checks if part of comment block
     def isBlockLine(self):
         for symbol in self.blockSymbols:
-            # as the text is stripped anyway, as long as the comment
-            # is not at the start, it is considered a "block" comment
-            if not self.text.startswith(symbol) and symbol in self.text[1:] : return True;
+            # if the comment is single line and contains the symbol, but not at the start OR
+            # contains both open and closing block characters (/* and */) but neither at the start
+            # e.g. print("test") /* inline comment */
+            if (symbol in self.text[1:] and (self.isSingleComment
+            or (self.blockSymbols[0] in self.text[1:] and self.blockSymbols[0][::-1] in self.text[1:]))) : return True;
         return False;
