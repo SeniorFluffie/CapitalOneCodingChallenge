@@ -71,8 +71,8 @@ def segregateComments(filename):
 # finds the number of lines in the file
 def lineCount(filename):
     # iterate through lines in the file
-    # (with as the file stream is unmanaged)
-    # (and cleans up even if exceptions are thrown)
+    # (with as the file stream is unmanaged
+    # and cleans up even if exceptions are thrown)
     with open(filename) as lines:
         # enumerates through lines, incrementing counter each time
         for counter, line in enumerate(lines):
