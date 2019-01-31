@@ -107,18 +107,25 @@ def fileScan():
             fileScan();
         else:
             # calculate line count
-            print("Total # of lines: ", lineCount(path));
+            numLines = lineCount(path);
+            print("Total # of lines: ", numLines);
             # split comments from other code
-            comments = (segregateComments(path));
+            comments, lines = (segregateComments(path));
             numComments = len(comments);
             print("Total # of comment lines: ", numComments);
             # intialize counters for TODO, single line comment,
             # and block comment checks
             numSingleComments = numBlockComments = numTODO = 0;
-            numSingleComments, numBlockComments, numTODO = commentCount(comments);
+            numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments, lines, numLines);
+            # get global file type
+            global isPython;
+            # modify calculation depending on file type
+            if(isPython is False): numBlockComments = numComments - numSingleComments;
+            else: numSingleComments -=numBlockComments;
+            # display results
             print("Total # of single line comments:", numSingleComments);
-            print("Total # of comment lines within block comments:", numComments - numSingleComments);
-            print("Total # of block line comments:", numBlockComments);
+            print("Total # of comment lines within block comments:", numBlockComments);
+            print("Total # of block line comments:", numBlockLine);
             print("Total # of TODO's: ", numTODO);
 
 # run code
