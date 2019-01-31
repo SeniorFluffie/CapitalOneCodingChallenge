@@ -27,12 +27,15 @@ def commentCheck(line):
 # analyze and split up comments
 def segregateComments(filename):
     comments = [];
+    fileLines = [];
     # iterate through file
     with open(filename) as lines:
-        for line in lines:
+        # keep track of file index
+        for counter, line in enumerate(lines):
             # if a comment, add to the list
-            if commentCheck(line) is not False : comments.append(Comment(line));
-    return comments;
+            if commentCheck(line) is not False : comments.append(Comment(line, counter));
+            fileLines.append(line);
+    return comments, fileLines;
 
 # finds the number of lines in the file
 def lineCount(filename):
