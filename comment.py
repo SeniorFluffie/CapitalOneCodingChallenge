@@ -1,15 +1,25 @@
 class Comment:
     # comment symbols to test for
-    singleSymbols = ['#', '//'];
-    blockSymbols = ['/*', '//', '#']
+    singleSymbols = ['//', '#'];
+    blockSymbols = ['/*', '//', '#', "'''"];
     # constructor
-    def __init__(self, text):
+    def __init__(self, text, index):
         # set text
         self.text = text.strip();
+        # set line number
+        self.index = index;
+        # checks if it is a python comment
+        self.isPython = self.isPython();
         # find initial property states
         self.hasTODO = self.hasTODO();
         self.isSingleComment = self.isSingleComment();
         self.isBlockLine = self.isBlockLine();
+        # checks if it was counted as a block comment
+        self.wasCounted = False;
+
+    # for determining file type
+    def isPython(self):
+        return '#' in self.text[0];
 
     # determines if "TODO" is in the comment
     def hasTODO(self):

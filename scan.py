@@ -1,20 +1,51 @@
 from comment import *
 
 # (global) comment symbols to test for
-commentSymbols = ['#', '//', '/*', '*'];
+commentSymbols = ['#', '//', '/*', '*/', '*'];
 
-def commentCount(comments):
+# (global) a check for whether the file is python
+isPython = False;
+
+def commentCount(comments, lines, numLines):
+    # declaration to check for file
+    global isPython;
     # counters for each property
     hasTODO = 0;
     singleComments = 0;
+    blockComments = 0;
     blockLine = 0;
     # iterate through comments
+    prevComment = None;
+    temp_counter = 0;
     for comment in comments:
+        # determine whether it is python or not
+        if(isPython is False and comment.isPython):
+            isPython = True;
         # increment depending on properties
-        if comment.hasTODO is not False : hasTODO += 1;
-        if comment.isSingleComment is not False : singleComments += 1;
+        if comment.hasTODO is not False :
+            hasTODO += 1;
+        # we can determine if comment is part of a block based on the following:
+        # 1. if a previous comment exists and is not inline
+        # 2. both previous and current comments are back-to-back and
+        # 3. both are single comments
+        if (prevComment is not None and prevComment.isBlockLine is False and
+        (prevComment.index == comment.index - 1) and comment.isSingleComment and prevComment.isSingleComment):
+            blockComments += wasCounted(prevComment) + wasCounted(comment);
+        # is a single one line comment
+        if comment.isSingleComment: singleComments += 1;
+        # is a block line (inline) comment
         if comment.isBlockLine is not False : blockLine += 1;
-    return singleComments, blockLine, hasTODO
+        # store previous comment
+        prevComment = comment;
+    return singleComments, blockComments, blockLine, hasTODO
+
+def wasCounted(comment):
+    # if the comment hasnt been counted as being a block
+    if comment.wasCounted is False:
+        # modify and send value
+        comment.wasCounted = True;
+        return 1;
+    return 0;
 
 def commentCheck(line):
     # compare each symbol
