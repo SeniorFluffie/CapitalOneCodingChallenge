@@ -3,12 +3,17 @@ from comment import *
 # (global) comment symbols to test for
 commentSymbols = ['#', '//', '/*', '*/', '*'];
 
+<<<<<<< HEAD
 # (global) a check for whether the file is python
 isPython = False;
 
 def commentCount(comments, lines, numLines):
     # declaration to check for file
     global isPython;
+=======
+def commentCount(comments, lines, numLines):
+    isPython = False;
+>>>>>>> 7fd2464d64df67db968ef16bc2262d5ffbbcf61e
     # counters for each property
     hasTODO = 0;
     singleComments = 0;
@@ -16,12 +21,16 @@ def commentCount(comments, lines, numLines):
     blockLine = 0;
     # iterate through comments
     prevComment = None;
+<<<<<<< HEAD
     temp_counter = 0;
+=======
+>>>>>>> 7fd2464d64df67db968ef16bc2262d5ffbbcf61e
     for comment in comments:
         # determine whether it is python or not
         if(isPython is False and comment.isPython):
             isPython = True;
         # increment depending on properties
+<<<<<<< HEAD
         if comment.hasTODO is not False :
             hasTODO += 1;
         # we can determine if comment is part of a block based on the following:
@@ -46,6 +55,27 @@ def wasCounted(comment):
         comment.wasCounted = True;
         return 1;
     return 0;
+=======
+        if comment.hasTODO is not False : hasTODO += 1;
+        if comment.isSingleComment is not False : singleComments += 1;
+        # if both previous and current line are single line comments, they are blocks
+        if (prevComment is not None and (prevComment.index == comment.index - 1) and
+        comment.isSingleComment and prevComment.isSingleComment):
+            if(prevComment.index is 0 or prevComment.index is numLines - 1): blockComments += 1;
+            blockComments += 1;
+        # is a block line (inline) comment
+        if comment.isBlockLine is not False : blockLine += 1;
+        # add extra counter if python
+        if comment.isHash and not isPython:
+            singleComments -= 1;
+            isPython = True;
+        # set temp variable
+        prevComment = comment;
+
+    # extra value
+    singleComments += 1;
+    return singleComments, blockComments, blockLine, hasTODO
+>>>>>>> 7fd2464d64df67db968ef16bc2262d5ffbbcf61e
 
 def commentCheck(line):
     # compare each symbol
@@ -117,6 +147,7 @@ def fileScan():
             # and block comment checks
             numSingleComments = numBlockComments = numTODO = 0;
             numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments, lines, numLines);
+<<<<<<< HEAD
             # get global file type
             global isPython;
             # modify calculation depending on file type
@@ -125,6 +156,10 @@ def fileScan():
             # display results
             print("Total # of single line comments:", numSingleComments);
             print("Total # of comment lines within block comments:", numBlockComments);
+=======
+            print("Total # of single line comments:", numSingleComments - numBlockComments);
+            print("Total # of comment lines within block comments:", numComments - numSingleComments + numBlockComments);
+>>>>>>> 7fd2464d64df67db968ef16bc2262d5ffbbcf61e
             print("Total # of block line comments:", numBlockLine);
             print("Total # of TODO's: ", numTODO);
 

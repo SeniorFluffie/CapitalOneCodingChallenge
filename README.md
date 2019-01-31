@@ -6,6 +6,10 @@ The program can be run with the following command
 
 ```python scan.py```
 
+However, it needs to be run using Python 3. If earlier versions of python are also installed on the system, please specify
+
+```python3 scan.py```
+
 ## Operation
 When the program is launched, the user will be prompted to enter a file path. 
 
