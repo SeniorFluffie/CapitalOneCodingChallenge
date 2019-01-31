@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# path for test file
+PATH="./tests/test_java_1.txt"
+
+if [ $# -ne 0 ]; then
+  # modify file depending on param
+  if (("$1" == 1))
+  then
+    PATH="./tests/test_java_2.txt"
+  elif (("$1" == 2))
+  then
+    PATH="./tests/test_python_1.txt"
+  fi
+fi
+
+# pipes file to program
+echo "$PATH" | /usr/local/bin/python3 ./scan.py
