@@ -1,7 +1,7 @@
 from comment import *
 
 # (global) comment symbols to test for
-commentSymbols = ['#', '//', '/*', '*/', '*'];
+commentSymbols = ['#', '//', '/*', '*/'];
 
 # (global) a check for whether the file is python
 isPython = False;
@@ -51,7 +51,7 @@ def commentCheck(line):
     # compare each symbol
     for symbol in commentSymbols:
         # exception of the single * (body comments)
-        if(symbol in line or line[0] == len(commentSymbols) - 1):
+        if(symbol in line or '*' == len(commentSymbols) - 1):
             return True;
     return False;
 
