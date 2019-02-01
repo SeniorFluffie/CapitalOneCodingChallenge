@@ -107,7 +107,7 @@ def fileScan():
             numLines = lineCount(path);
             print("Total # of lines: ", numLines);
             # split comments from other code
-            comments = (segregateComments(path));
+            comments = segregateComments(path);
             numComments = len(comments);
             print("Total # of comment lines: ", numComments);
             # intialize counters for TODO, single line comment,
