@@ -82,7 +82,7 @@ def lineCount(filename):
 
 # checks if file should be read
 def checkFile(filename):
-    # ignore hidden files or no extensions
+    # no extensions or ignore hidden files
     if('.' not in filename or filename[1] == '.'):
         return False;
     return True;
@@ -121,7 +121,7 @@ def fileScan():
             global isPython;
             # modify calculation depending on file type
             if(isPython is False): numBlockComments = numComments - numSingleComments;
-            else: numSingleComments -=numBlockComments;
+            else: numSingleComments -= numBlockComments;
             # display results
             print("Total # of single line comments:", numSingleComments);
             print("Total # of comment lines within block comments:", numBlockComments);
