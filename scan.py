@@ -6,7 +6,7 @@ commentSymbols = ['#', '//', '/*', '*/'];
 # (global) a check for whether the file is python
 isPython = False;
 
-def commentCount(comments, lines, numLines):
+def commentCount(comments, numLines):
     # declaration to check for file
     global isPython;
     # counters for each property
@@ -57,15 +57,13 @@ def commentCheck(line):
 # analyze and split up comments
 def segregateComments(filename):
     comments = [];
-    fileLines = [];
     # iterate through file
     with open(filename) as lines:
         # keep track of file index
         for counter, line in enumerate(lines):
             # if a comment, add to the list
             if commentCheck(line) is not False : comments.append(Comment(line, counter));
-            fileLines.append(line);
-    return comments, fileLines;
+    return comments;
 
 # finds the number of lines in the file
 def lineCount(filename):
@@ -109,13 +107,13 @@ def fileScan():
             numLines = lineCount(path);
             print("Total # of lines: ", numLines);
             # split comments from other code
-            comments, lines = (segregateComments(path));
+            comments = (segregateComments(path));
             numComments = len(comments);
             print("Total # of comment lines: ", numComments);
             # intialize counters for TODO, single line comment,
             # and block comment checks
             numSingleComments = numBlockComments = numTODO = 0;
-            numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments, lines, numLines);
+            numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments, numLines);
             # get global file type
             global isPython;
             # modify calculation depending on file type
