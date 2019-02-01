@@ -21,8 +21,7 @@ def commentCount(comments):
         if(isPython is False and comment.isPython):
             isPython = True;
         # increment depending on properties
-        if comment.hasTODO is not False :
-            hasTODO += 1;
+        if comment.hasTODO: hasTODO += 1;
         # we can determine if comment is part of a block based on the following:
         # 1. if a previous comment exists and is not inline
         # 2. both previous and current comments are back-to-back and
@@ -33,7 +32,7 @@ def commentCount(comments):
         # is a single one line comment
         if comment.isSingleComment: singleComments += 1;
         # is a block line (inline) comment
-        if comment.isBlockLine is not False : blockLine += 1;
+        if comment.isBlockLine: blockLine += 1;
         # store previous comment
         prevComment = comment;
     return singleComments, blockComments, blockLine, hasTODO
@@ -62,7 +61,7 @@ def segregateComments(filename):
         # keep track of file index
         for counter, line in enumerate(lines):
             # if a comment, add to the list
-            if commentCheck(line) is not False : comments.append(Comment(line, counter));
+            if commentCheck(line) : comments.append(Comment(line, counter));
     return comments;
 
 # finds the number of lines in the file
