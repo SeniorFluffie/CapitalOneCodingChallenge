@@ -6,7 +6,7 @@ commentSymbols = ['#', '//', '/*', '*/'];
 # (global) a check for whether the file is python
 isPython = False;
 
-def commentCount(comments, numLines):
+def commentCount(comments):
     # declaration to check for file
     global isPython;
     # counters for each property
@@ -113,7 +113,7 @@ def fileScan():
             # intialize counters for TODO, single line comment,
             # and block comment checks
             numSingleComments = numBlockComments = numTODO = 0;
-            numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments, numLines);
+            numSingleComments, numBlockComments, numBlockLine, numTODO = commentCount(comments);
             # get global file type
             global isPython;
             # modify calculation depending on file type
