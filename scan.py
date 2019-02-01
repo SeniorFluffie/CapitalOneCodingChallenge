@@ -16,7 +16,6 @@ def commentCount(comments, lines, numLines):
     blockLine = 0;
     # iterate through comments
     prevComment = None;
-    temp_counter = 0;
     for comment in comments:
         # determine whether it is python or not
         if(isPython is False and comment.isPython):
